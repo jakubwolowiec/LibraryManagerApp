@@ -7,27 +7,30 @@ import { BookService } from './book.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
-
-
-
 export class AppComponent implements OnInit {
   public books!: Book[];
+  public title: string = 'LibraryManagerApp';
 
   constructor(private bookService: BookService) {}
 
   ngOnInit(): void {
-      this.getBooks;
+    this.getBooks();
   }
- booksObserver: Observer<Book[]>= {
-  next: (response:Book[]) => this.books = response,
-  error: (error: HttpErrorResponse) => alert(error.message),
-  complete: () => console.log("Everything's fine")
-};
-  
 
-  public getBooks(): void{
-    this.bookService.getBooks().subscribe(this.booksObserver)
+ 
+
+  public getBooks(): void {
+    this.bookService.getBooks().subscribe({
+      next: (response: Book[]) => {
+        this.books = response;
+        console.log(this.books);
+      },
+      error: (error: HttpErrorResponse) => {
+        alert(error.message);
+      },
+      complete: () => {}
+    });
   }
 }

@@ -1,3 +1,39 @@
-<div *ngFor="let book of books">
-  <div>{{book.title}}</div>
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <a class="navbar-brand">Library Manager</a>
+  <a class="nav-link">Add Book <span class="sr-only">(current)</span></a>
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</nav>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+  <div class="row">
+    <div *ngFor="let book of books" class="col-md-6 col-xl-3">
+      <div class="card m-b-30">
+        <div class="card-body row">
+          <div class="col-6">
+            <a href=""><img src={{book?.imgUrl}} alt="" class="img-fluid "></a>
+          </div>
+          <div class="col-6 card-title align-self-center mb-0">
+            <h5>{{book?.title}}</h5>
+            <p class="m-0">{{book?.author}}</p>
+          </div>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Pages: <a>{{book?.pages}}</a></li>
+          <li class="list-group-item">Year of release: {{book?.yearOfRelease}}</li>
+        </ul>
+        <div class="card-body">
+          <div class="float-right btn-group btn-group-sm">
+            <a href="#" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip"
+              data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+            <a href="#" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip"
+              data-original-title="Delete"><i class="fa fa-times"></i></a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
