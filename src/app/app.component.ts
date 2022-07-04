@@ -33,4 +33,24 @@ export class AppComponent implements OnInit {
       complete: () => {}
     });
   }
+
+  public onOpenModal(book: Book|null, mode: string):void {
+    const container = document.getElementById('main-container');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-toggle', 'modal');
+
+    if(mode === 'add'){
+      button.setAttribute('data-target', '#addBookModal');
+    }
+    else if(mode === 'edit'){
+      button.setAttribute('data-target', '#editBookModal');
+    }
+    else if(mode === 'delete'){
+      button.setAttribute('data-target', '#deleteBookModal');
+    }
+    container?.appendChild(button);
+    button.click();
+  }
 }
