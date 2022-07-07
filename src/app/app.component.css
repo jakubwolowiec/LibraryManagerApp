@@ -24,6 +24,21 @@ a {
 .nav-link{
     float: left;
 }
+
 i{
     color: #f5f5f5;
+}
+
+.notRead{
+    background-color: #c41616;
+    border: #c41616;
+}
+
+.read{
+    background-color: #0ca82e;
+    border: #0ca82e;
+}
+
+.hidden{
+    visibility: hidden;
 }

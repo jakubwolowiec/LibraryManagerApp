@@ -5,4 +5,6 @@ export interface Book {
     pages: number;
     yearOfRelease: number;
     imgUrl: string;
+    read: boolean;
+    rating: number;
 }
