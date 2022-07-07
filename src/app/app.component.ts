@@ -30,8 +30,7 @@ export class AppComponent implements OnInit {
       },
       error: (error: HttpErrorResponse) => {
         alert(error.message);
-      },
-      complete: () => {}
+      }
     });
   }
 
@@ -66,6 +65,7 @@ export class AppComponent implements OnInit {
     this.bookService.addBook(addForm.value).subscribe({
       next: (response: Book) =>{console.log(response);
       this.getBooks();
+      addForm.resetForm();
       },
     
       error: (error: HttpErrorResponse) => {alert(error.message)}
@@ -113,5 +113,24 @@ else{
   buttonIfRead?.classList.add("notRead");
 }
     });
+  }
+
+  public searchBooks(key: String):void{
+  const results: Book[] = [];
+  for(const book of this.books){
+  if(book.title.toLowerCase().indexOf(key.toLowerCase()) !== -1 
+  || book.author.toLowerCase().indexOf(key.toLowerCase()) !== -1
+  || book.yearOfRelease.toString().indexOf(key.toLowerCase()) !== -1
+  ){
+    results.push(book);
+  }
+  
+  }
+  this.books = results;
+
+  if(results.length === 0 || key === ""){
+    this.getBooks();
+  }
+  
   }
 }
