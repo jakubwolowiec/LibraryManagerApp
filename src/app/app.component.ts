@@ -75,14 +75,20 @@ export class AppComponent implements OnInit {
   }
  
   public onUpdateBook(book:Book){
-    document.getElementById('update-book-form')?.click();
-    document.getElementById('rate-book-form')?.click();
+    
     this.bookService.updateBook(book).subscribe({
       next: (response: Book) =>{console.log(response);
       this.getBooks();
+      
       },
     
-      error: (error: HttpErrorResponse) => {alert(error.message)}
+      error: (error: HttpErrorResponse) => {alert(error.message)},
+
+      complete: () =>{
+        document.getElementById('update-book-form')?.click();
+        document.getElementById('rate-book-form')?.click();
+
+      }
       
     }
     )
