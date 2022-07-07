@@ -1,61 +1,119 @@
-
 <nav class="navbar navbar-dark bg-dark justify-content-between">
   <a class="navbar-brand">Library Manager</a>
-  <a href="#" class="nav-link" style="color: whitesmoke;" (click)="onOpenModal(null, 'add')">Add Book <span
-      class="sr-only">(current)</span></a>
+  <a
+    href="#"
+    class="nav-link"
+    style="color: whitesmoke"
+    (click)="onOpenModal(null, 'add')"
+    >Add Book <span class="sr-only">(current)</span></a
+  >
   <form class="form-inline">
-    <input class="form-control mr-sm-2" id="key" name="key" type="search" placeholder="Search" aria-label="Search" (ngModelChange)="searchBooks(key.value)" 
-    #key="ngModel" ngModel >
+    <input
+      class="form-control mr-sm-2"
+      id="key"
+      name="key"
+      type="search"
+      placeholder="Search"
+      aria-label="Search"
+      (ngModelChange)="searchBooks(key.value)"
+      #key="ngModel"
+      ngModel
+    />
   </form>
 </nav>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link
+  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+  rel="stylesheet"
+/>
 <div class="container" id="main-container">
   <div class="row">
-    <div *ngFor="let book of books ; let $last = last " [isLast]='$last' (ngInit)="ifRead()" class="col-md-6 col-xl-3" >
-    
-      <div class="card m-b-30" id="{{this.book.id}}">
-        
+    <div
+      *ngFor="let book of books; let $last = last"
+      [isLast]="$last"
+      (ngInit)="ifRead()"
+      class="col-md-6 col-xl-3"
+    >
+      <div class="card m-b-30" id="{{ this.book.id }}">
         <div class="card-body row">
           <div class="col-6">
-            <a href=""><img src={{book?.imgUrl}} alt="" class="img-fluid "></a>
+            <a href=""
+              ><img src="{{ book?.imgUrl }}" alt="" class="img-fluid"
+            /></a>
           </div>
           <div class="col-6 card-title align-self-center mb-0">
-            <h5>{{book?.title}}</h5>
-            <p class="m-0">{{book?.author}}</p>
+            <h5>{{ book?.title }}</h5>
+            <p class="m-0">{{ book?.author }}</p>
           </div>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Pages: <a>{{book?.pages}}</a></li>
-          <li class="list-group-item">Year of release: {{book?.yearOfRelease}}</li>
-          <li class="list-group-item hidden" id="rating{{this.book.id}}">Rating: {{book?.rating}}/10</li>
+          <li class="list-group-item">
+            Pages: <a>{{ book?.pages }}</a>
+          </li>
+          <li class="list-group-item">
+            Year of release: {{ book?.yearOfRelease }}
+          </li>
+          <li class="list-group-item hidden" id="rating{{ this.book.id }}">
+            Rating: {{ book?.rating }}/10
+          </li>
         </ul>
         <div class="card-body">
-          <div class="float-left btn-group btn-group-sm ">
-            <a href="#" class="btn btn-primary tooltips" id="button{{this.book.id}}" data-placement="top" data-toggle="tooltip"
-            data-original-title="Rate" (click)="onOpenModal(book, 'rate')"><i class="fa fa-book"></i></a>
-          </div>
-          
-          <div class="float-right btn-group btn-group-sm" >
-            <a href="#" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip"
-              data-original-title="Edit" (click)="onOpenModal(book, 'edit')"><i class="fa fa-pencil"></i> </a>
-            <a href="#" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip"
-              data-original-title="Delete" (click)="onOpenModal(book, 'delete')" ><i class="fa fa-times"></i></a>
+          <div class="float-left btn-group btn-group-sm">
+            <a
+              href="#"
+              class="btn btn-primary tooltips"
+              id="button{{ this.book.id }}"
+              data-placement="top"
+              data-toggle="tooltip"
+              data-original-title="Rate"
+              (click)="onOpenModal(book, 'rate')"
+              ><i class="fa fa-book"></i
+            ></a>
           </div>
 
+          <div class="float-right btn-group btn-group-sm">
+            <a
+              href="#"
+              class="btn btn-primary tooltips"
+              data-placement="top"
+              data-toggle="tooltip"
+              data-original-title="Edit"
+              (click)="onOpenModal(book, 'edit')"
+              ><i class="fa fa-pencil"></i>
+            </a>
+            <a
+              href="#"
+              class="btn btn-secondary tooltips"
+              data-placement="top"
+              data-toggle="tooltip"
+              data-original-title="Delete"
+              (click)="onOpenModal(book, 'delete')"
+              ><i class="fa fa-times"></i
+            ></a>
+          </div>
         </div>
       </div>
     </div>
-    
   </div>
-</div >
+</div>
 <!-- Add book modal -->
-<div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="addBookModalLabel"
-  aria-hidden="true">
+<div
+  class="modal fade"
+  id="addBookModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="addBookModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="addBookModalLabel">Add Book</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -63,30 +121,80 @@
         <form #addForm="ngForm" (ngSubmit)="onAddBook(addForm)">
           <div class="form-group">
             <label for="name">Title</label>
-            <input type="text" ngModel name="title" class="form-control" id="title" placeholder="Title" required>
+            <input
+              type="text"
+              ngModel
+              name="title"
+              class="form-control"
+              id="title"
+              placeholder="Title"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="author">Author</label>
-            <input type="text" ngModel name="author" class="form-control" id="author" placeholder="Author" required>
+            <input
+              type="text"
+              ngModel
+              name="author"
+              class="form-control"
+              id="author"
+              placeholder="Author"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="pages">Number of pages</label>
-            <input type="number" ngModel name="pages" class="form-control" id="pages" placeholder="Number of pages"
-              required>
+            <input
+              type="number"
+              ngModel
+              name="pages"
+              class="form-control"
+              id="pages"
+              placeholder="Number of pages"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="yearOfRelease">Year of release</label>
-            <input type="number" ngModel name="yearOfRelease" class="form-control" id="yearOfRelease"
-              placeholder="Year of release" required>
+            <input
+              type="number"
+              ngModel
+              name="yearOfRelease"
+              class="form-control"
+              id="yearOfRelease"
+              placeholder="Year of release"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="imgUrl">Cover image URL</label>
-            <input type="text" ngModel name="imgUrl" class="form-control" id="imgUrl" placeholder="Cover image URL"
-              required>
+            <input
+              type="text"
+              ngModel
+              name="imgUrl"
+              class="form-control"
+              id="imgUrl"
+              placeholder="Cover image URL"
+              required
+            />
           </div>
           <div class="modal-footer">
-            <button type="button" id="add-book-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+            <button
+              type="button"
+              id="add-book-form"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              [disabled]="addForm.invalid"
+              type="submit"
+              class="btn btn-primary"
+            >
+              Save changes
+            </button>
           </div>
         </form>
       </div>
@@ -95,45 +203,114 @@
 </div>
 
 <!-- Edit book modal -->
-<div class="modal fade" id="editBookModal" tabindex="-1" role="dialog" aria-labelledby="editBookModalLabel"
-  aria-hidden="true">
+<div
+  class="modal fade"
+  id="editBookModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="editBookModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editBookModalLabel">Edit Book</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form #updateForm="ngForm">
-          <input type="hidden" name="id" ngModel="{{updateBook?.id}}" class="form-control" id="id">
+          <input
+            type="hidden"
+            name="id"
+            ngModel="{{ updateBook?.id }}"
+            class="form-control"
+            id="id"
+          />
           <div class="form-group">
             <label for="name">Title</label>
-            <input type="text"  ngModel="{{updateBook?.title}}" name="title" class="form-control" id="title" placeholder="Title" required>
+            <input
+              type="text"
+              ngModel="{{ updateBook?.title }}"
+              name="title"
+              class="form-control"
+              id="title"
+              placeholder="Title"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="author">Author</label>
-            <input type="text" ngModel="{{updateBook?.author}}" name="author" class="form-control" id="author" placeholder="Author" required>
+            <input
+              type="text"
+              ngModel="{{ updateBook?.author }}"
+              name="author"
+              class="form-control"
+              id="author"
+              placeholder="Author"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="pages">Number of pages</label>
-            <input type="number" ngModel="{{updateBook?.pages}}" name="pages" class="form-control" id="pages" placeholder="Number of pages"
-              required>
+            <input
+              type="number"
+              ngModel="{{ updateBook?.pages }}"
+              name="pages"
+              class="form-control"
+              id="pages"
+              placeholder="Number of pages"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="yearOfRelease">Year of release</label>
-            <input type="number" ngModel="{{updateBook?.yearOfRelease}}" name="yearOfRelease" class="form-control" id="yearOfRelease"
-              placeholder="Year of release" required>
+            <input
+              type="number"
+              ngModel="{{ updateBook?.yearOfRelease }}"
+              name="yearOfRelease"
+              class="form-control"
+              id="yearOfRelease"
+              placeholder="Year of release"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="imgUrl">Cover image URL</label>
-            <input type="text" ngModel="{{updateBook?.imgUrl}}" name="imgUrl" class="form-control" id="imgUrl" placeholder="Cover image URL"
-              required>
+            <input
+              type="text"
+              ngModel="{{ updateBook?.imgUrl }}"
+              name="imgUrl"
+              class="form-control"
+              id="imgUrl"
+              placeholder="Cover image URL"
+              required
+            />
           </div>
           <div class="modal-footer">
-            <button type="button" id="update-book-form" class="btn btn-secondary" (click)="updateForm.resetForm" data-dismiss="modal">Close</button>
-            <button [disabled]="updateForm.invalid" (click)="onUpdateBook(updateForm.value)" type="submit" class="btn btn-primary" >Save changes</button>
+            <button
+              type="button"
+              id="update-book-form"
+              class="btn btn-secondary"
+              (click)="(updateForm.resetForm)"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              [disabled]="updateForm.invalid"
+              (click)="onUpdateBook(updateForm.value)"
+              type="submit"
+              class="btn btn-primary"
+            >
+              Save changes
+            </button>
           </div>
         </form>
       </div>
@@ -142,26 +319,56 @@
 </div>
 
 <!-- Rate book modal -->
-<div class="modal fade" id="rateBookModal" tabindex="-1" role="dialog" aria-labelledby="rateBookModalLabel"
-  aria-hidden="true">
+<div
+  class="modal fade"
+  id="rateBookModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="rateBookModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="rateBookModalLabel">Rate Book</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form #rateForm ="ngForm">
+        <form #rateForm="ngForm">
           <div class="form-group">
             <label for="isRead">Did you read that book?</label>
-            <input type="hidden" ngModel class="form-control" name="read" value="false">
-            <input type="checkbox" ngModel name="read" class="form-control float-left" id="read" value="true">
+            <input
+              type="hidden"
+              ngModel
+              class="form-control"
+              name="read"
+              value="false"
+            />
+            <input
+              type="checkbox"
+              ngModel
+              name="read"
+              class="form-control float-left"
+              id="read"
+              value="true"
+            />
           </div>
           <div class="form-group">
             <label for="rating">Rating:</label>
-            <select ngModel="{{updateBook?.rating}}" name="rating" class="form-control" id="rating" required>
+            <select
+              ngModel="{{ updateBook?.rating }}"
+              name="rating"
+              class="form-control"
+              id="rating"
+              required
+            >
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -174,26 +381,77 @@
               <option value="10">10</option>
             </select>
           </div>
-            <input type="hidden" name="id" ngModel="{{updateBook?.id}}" class="form-control" id="id">
-            <div class="form-group">
-              <input type="hidden"  ngModel="{{updateBook?.title}}" name="title" class="form-control" id="title">
-            </div>
-            <div class="form-group">
-              <input type="hidden" ngModel="{{updateBook?.author}}" name="author" class="form-control" id="author">
-            </div>
-            <div class="form-group">
-              <input type="hidden" ngModel="{{updateBook?.pages}}" name="pages" class="form-control" id="pages">
-            </div>
-            <div class="form-group">
-              <input type="hidden" ngModel="{{updateBook?.yearOfRelease}}" name="yearOfRelease" class="form-control" id="yearOfRelease">
-            </div>
-            <div class="form-group">
-              <input type="hidden" ngModel="{{updateBook?.imgUrl}}" name="imgUrl" class="form-control" id="imgUrl">
-          <div class="modal-footer">
-            <button type="button" id="rate-book-form" class="btn btn-secondary" (click)="rateForm.resetForm" data-dismiss="modal">Close</button>
-            <button [disabled]="rateForm.invalid" type="submit" (click)="onUpdateBook(rateForm.value)" class="btn btn-primary" >Save changes</button>
+          <input
+            type="hidden"
+            name="id"
+            ngModel="{{ updateBook?.id }}"
+            class="form-control"
+            id="id"
+          />
+          <div class="form-group">
+            <input
+              type="hidden"
+              ngModel="{{ updateBook?.title }}"
+              name="title"
+              class="form-control"
+              id="title"
+            />
           </div>
-        </div>
+          <div class="form-group">
+            <input
+              type="hidden"
+              ngModel="{{ updateBook?.author }}"
+              name="author"
+              class="form-control"
+              id="author"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="hidden"
+              ngModel="{{ updateBook?.pages }}"
+              name="pages"
+              class="form-control"
+              id="pages"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="hidden"
+              ngModel="{{ updateBook?.yearOfRelease }}"
+              name="yearOfRelease"
+              class="form-control"
+              id="yearOfRelease"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="hidden"
+              ngModel="{{ updateBook?.imgUrl }}"
+              name="imgUrl"
+              class="form-control"
+              id="imgUrl"
+            />
+            <div class="modal-footer">
+              <button
+                type="button"
+                id="rate-book-form"
+                class="btn btn-secondary"
+                (click)="(rateForm.resetForm)"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                [disabled]="rateForm.invalid"
+                type="submit"
+                (click)="onUpdateBook(rateForm.value)"
+                class="btn btn-primary"
+              >
+                Save changes
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     </div>
@@ -201,21 +459,40 @@
 </div>
 
 <!-- Delete book modal -->
-<div class="modal fade" id="deleteBookModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
-  aria-hidden="true">
+<div
+  class="modal fade"
+  id="deleteBookModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="deleteModelLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="deleteModelLabel">Delete book</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to delete book {{deleteBook?.title}}?</p>
+        <p>Are you sure you want to delete book {{ deleteBook?.title }}?</p>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-           <button (click)="onDeleteBook(deleteBook?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            No
+          </button>
+          <button
+            (click)="onDeleteBook(deleteBook?.id)"
+            class="btn btn-danger"
+            data-dismiss="modal"
+          >
+            Yes
+          </button>
         </div>
       </div>
     </div>
@@ -228,4 +505,3 @@
     <p>No books were found.</p>
   </div>
 </div>
-
